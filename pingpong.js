@@ -1,3 +1,4 @@
+const jokeText = document.getElementById('joke');
 const p1Button = document.getElementById('p1Button');
 const p2Button = document.getElementById('p2Button');
 const p1Display = document.getElementById('p1Display');
@@ -10,7 +11,12 @@ let p2Score = 0;
 let winningScore = 3;
 let isGameOver = false;
 
+changeJokeText();
+
+
 p1Button.addEventListener('click', function () {
+    getJoke();
+    // console.log(getJoke());
     // If one of the players has reached 5, the game can no longer continue 
     if (!isGameOver) {
         p1Score += 1;
@@ -64,3 +70,16 @@ function resetGame() {
     p1Button.disable = false;
     p2Button.disable = false;
 }
+
+async function getJoke(){
+    let jokeAPI = "https://v2.jokeapi.dev/joke/Any";
+    let response = await fetch(jokeAPI);
+    let jasonData = await response.json();
+
+    return await jasonData["setup"] + " " + jasonData["delivery"]
+}
+
+async function changeJokeText(){
+    jokeText.textContent = await getJoke();
+}
+
