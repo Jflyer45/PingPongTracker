@@ -76,6 +76,8 @@ async function getJoke(){
     let response = await fetch(jokeAPI);
     let jasonData = await response.json();
 
+    console.log(jasonData["setup"] + " " + jasonData["delivery"]);
+
     return await jasonData["setup"] + " " + jasonData["delivery"]
 }
 
